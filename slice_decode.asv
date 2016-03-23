@@ -1,0 +1,15 @@
+function w = slice_decode(y, count, key, n, ns)
+Lseg = floor(length(y) / count);
+Lslice = floor(Lseg / ns);
+d = zeros(1, numel(n));  
+for i = 1 : count
+    yseg = y((i - 1) * Lseg + 1 : i * Lseg);
+    for j = 1 : ns
+        yslice = yseg((j - 1) * Lslice + 1 : j * Lslice);
+        cyslice = ifft(log(abs(fft(yslice))));
+        for k = 1 : length(n)
+            d(k) = [zeros(1, n(k)) key] * cyslice(1 : length(key) + n(k));
+        end
+    end
+    [~, I] =  
+end

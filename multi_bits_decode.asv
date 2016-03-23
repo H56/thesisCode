@@ -1,0 +1,20 @@
+function w = multi_bits_decode(y, Lw, k, n)
+Lwseg = log2(length(n));
+if 2^Lwseg ~= length(n)
+    disp('wrong input');
+    return;
+end
+N = ceil(length(w) / Lwseg);
+Lseg = floor(length(y) / N);
+w = [];
+d = zeros(1, length(n));
+for i = 1 : N
+    y_seg = y((i - 1) * Lseg + 1 : i * Lseg);
+    cy = ifft(log(abs(fft(y_seg))));
+    for i = 1 : length(n)
+        d(i) = [zeros(1, n(i)) k] * cy(1 : length(k) + n(i));
+    end
+    [~, index] = max(d);
+    b = dec2bin(index);
+    
+    

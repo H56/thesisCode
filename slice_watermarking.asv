@@ -1,0 +1,8 @@
+function y = slice_watermarking(x, w, n, ns)
+w = w + 1;
+Lseg = floor(length(x) / length(w));
+for i = 1 : length(w)
+    xseg = x((i - 1) * Lseg + 1 : i * Lseg);
+    for j = 1 : ns
+        
+end
