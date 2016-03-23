@@ -12,7 +12,7 @@ Lpn = 1023;
 a = 0.002;
 snr = 0;
 
-result = cell(times);
+result = cell(1, times);
 % count_water = 0;
 for t = 1 : times
     result{t} = zeros(2, 5);

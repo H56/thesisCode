@@ -12,7 +12,7 @@ Lpn = 1023;
 a_set = [0.001 0.002 0.004 0.006];
 
 %result = zeros(length(a_set), 5);
-result = cell(times);
+result = cell(1, times);
 for i = 1 : times
     result{i} = zeros(4, 5);
 end
