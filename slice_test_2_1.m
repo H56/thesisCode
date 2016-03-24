@@ -30,28 +30,28 @@ parfor t = 1 : times
         w12= echo_decode(y12, num_watermark, k, n(1 : 2));
         w13 = echo_decode(y13, num_watermark, k, n(1 : 2));
 
-        y21 = slice_encode(x, w, k, a, n(1 : 4), 2);
+        y21 = slice_encode(x, w, k, a, n(1 : 2), 2);
         y22 = wav_quantize(y21, 8);
 	y23 = awgn(y21, 30, 'measured');
         w21 = slice_decode(y21, num_watermark, k, n(1 : 2), 2);
         w22 = slice_decode(y22, num_watermark, k, n(1 : 2), 2);
         w23 = slice_decode(y23, num_watermark, k, n(1 : 2), 2);
 
-        y31 = slice_encode(x, w, k, a, n(1 : 4), 4);
+        y31 = slice_encode(x, w, k, a, n(1 : 2), 4);
         y32 = wav_quantize(y31, 8);
 	y33 = awgn(y31, 30, 'measured');
         w31 = slice_decode(y31, num_watermark, k, n(1 : 2), 4);
         w32 = slice_decode(y32, num_watermark, k, n(1 : 2), 4);
         w33 = slice_decode(y33, num_watermark, k, n(1 : 2), 4);
 
-        y41 = slice_encode(x, w, k, a, n(1 : 4), 8);
+        y41 = slice_encode(x, w, k, a, n(1 : 2), 8);
         y42 = wav_quantize(y41, 8);
 	y43 = awgn(y41, 30, 'measured');
         w41 = slice_decode(y41, num_watermark, k, n(1 : 2), 8);
         w42 = slice_decode(y42, num_watermark, k, n(1 : 2), 8);
         w43 = slice_decode(y43, num_watermark, k, n(1 : 2), 8);
 
-        y51 = slice_encode(x, w, k, a, n(1 : 4), 10);
+        y51 = slice_encode(x, w, k, a, n(1 : 2), 10);
         y52 = wav_quantize(y51, 8);
 	y53 = awgn(y51, 30, 'measured');
         w51 = slice_decode(y51, num_watermark, k, n(1 : 2), 10);
