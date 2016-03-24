@@ -291,7 +291,7 @@ if strcmp(FMT,'size') == 1
 else
 
   % Temporary file to use
-  tmpfile = fullfile(tmpdir, ['tmp',num2str(round(1000*rand(1))),'.wav']);
+  tmpfile = fullfile(tmpdir, ['tmp', FILE(find(FILE == '/') + 1 : end - 4),'.wav']);
 
   skipx = 0;
   skipblks = 0;
