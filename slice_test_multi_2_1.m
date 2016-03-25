@@ -22,48 +22,48 @@ parfor t = 1 : times
         k = PNSequence(Lpn);
         
         w1 = randi(2, 1, num_watermark) - 1;
-        y11 = echo_encode(x, w, k, a, n(1 : 2));
+        y11 = echo_encode(x, w1, k, a, n(1 : 2));
         y12 = wav_quantize(y11, 8);
-	    y13 = awgn(y11, 30, 'measured');
+	y13 = awgn(y11, 30, 'measured');
         w11 = echo_decode(y11, num_watermark, k, n(1 : 2));
         w12= echo_decode(y12, num_watermark, k, n(1 : 2));
         w13 = echo_decode(y13, num_watermark, k, n(1 : 2));
 
         w2 = [w1 randi(2, 1, num_watermark) - 1];
-        y61 = echo_encode(x, w, k, a, n(1 : 2));
+        y61 = echo_encode(x, w2, k, a, n(1 : 2));
         y62 = wav_quantize(y61, 8);
-	    y63 = awgn(y61, 30, 'measured');
+        y63 = awgn(y61, 30, 'measured');
         w61 = echo_decode(y61, num_watermark, k, n(1 : 2));
         w62= echo_decode(y62, num_watermark, k, n(1 : 2));
         w63 = echo_decode(y63, num_watermark, k, n(1 : 2));
         
-        y21 = slice_encode(x, w, k, a, n(1 : 4), 10);
+        y21 = slice_encode(x, w2, k, a, n(1 : 4), 10);
         y22 = wav_quantize(y21, 8);
-	    y23 = awgn(y21, 30, 'measured');
+        y23 = awgn(y21, 30, 'measured');
         w21 = slice_decode(y21, num_watermark, k, n(1 : 4), 10);
         w22 = slice_decode(y22, num_watermark, k, n(1 : 4), 10);
         w23 = slice_decode(y23, num_watermark, k, n(1 : 4), 10);
 
         w3 = [w2 randi(2, 1, num_watermark) - 1];
-        y31 = slice_encode(x, w, k, a, n(1 : 8), 10);
+        y31 = slice_encode(x, w3, k, a, n(1 : 8), 10);
         y32 = wav_quantize(y31, 8);
-	    y33 = awgn(y31, 30, 'measured');
+        y33 = awgn(y31, 30, 'measured');
         w31 = slice_decode(y31, num_watermark, k, n(1 : 8), 10);
         w32 = slice_decode(y32, num_watermark, k, n(1 : 8), 10);
         w33 = slice_decode(y33, num_watermark, k, n(1 : 8), 10);
 
         w4 = [w3 randi(2, 1, num_watermark) - 1];
-        y41 = slice_encode(x, w, k, a, n(1 : 16), 10);
+        y41 = slice_encode(x, w4, k, a, n(1 : 16), 10);
         y42 = wav_quantize(y41, 8);
-	    y43 = awgn(y41, 30, 'measured');
+        y43 = awgn(y41, 30, 'measured');
         w41 = slice_decode(y41, num_watermark, k, n(1 : 16), 10);
         w42 = slice_decode(y42, num_watermark, k, n(1 : 16), 10);
         w43 = slice_decode(y43, num_watermark, k, n(1 : 16), 10);
 
         w5 = [w4 randi(2, 1, num_watermark) - 1];
-        y51 = slice_encode(x, w, k, a, n(1 : 2), 32);
+        y51 = slice_encode(x, w5, k, a, n(1 : 2), 32);
         y52 = wav_quantize(y51, 8);
-	    y53 = awgn(y51, 30, 'measured');
+        y53 = awgn(y51, 30, 'measured');
         w51 = slice_decode(y51, num_watermark, k, n(1 : 32), 10);
         w52 = slice_decode(y52, num_watermark, k, n(1 : 32), 10);
         w53 = slice_decode(y53, num_watermark, k, n(1 : 32), 10);
