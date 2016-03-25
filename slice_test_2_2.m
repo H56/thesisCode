@@ -14,7 +14,7 @@ snr = 0;
 
 result = cell(times, 1);
 for t = 1 : times
-    result{t} = zeros(3, 5);
+    result{t} = zeros(2, 5);
 end
 % count_water = 0;
 parfor t = 1 : times
@@ -24,42 +24,36 @@ parfor t = 1 : times
         w = randi(2, 1, num_watermark) - 1;
 
         y11 = echo_encode(x, w, k, a, n(1 : 2));
-        y12 = wav_quantize(y11, 8);
-	y13 = awgn(y11, 30, 'measured');
+	mp3write(y11, fs, strcat('tmp/', num2str(t), 'tmp.mp3')); [y12, fs] = mp3read(strcat('tmp/', num2str(t), 'tmp.mp3'));
+        y11 = 1.8 * y11;
         w11 = echo_decode(y11, num_watermark, k, n(1 : 2));
         w12= echo_decode(y12, num_watermark, k, n(1 : 2));
-        w13 = echo_decode(y13, num_watermark, k, n(1 : 2));
 
-        y21 = slice_encode(x, w, k, a, n(1 : 2), 2);
-        y22 = wav_quantize(y21, 8);
-	y23 = awgn(y21, 30, 'measured');
+        y21 = slice_encode(x, w, k, a, n(1 : 2), 2);        
+	mp3write(y21, fs, strcat('tmp/', num2str(t), 'tmp.mp3')); [y22, fs] = mp3read(strcat('tmp/', num2str(t), 'tmp.mp3'));
+        y21 = 1.8 * y21;
         w21 = slice_decode(y21, num_watermark, k, n(1 : 2), 2);
         w22 = slice_decode(y22, num_watermark, k, n(1 : 2), 2);
-        w23 = slice_decode(y23, num_watermark, k, n(1 : 2), 2);
 
         y31 = slice_encode(x, w, k, a, n(1 : 2), 4);
-        y32 = wav_quantize(y31, 8);
-	y33 = awgn(y31, 30, 'measured');
+	mp3write(y31, fs, strcat('tmp/', num2str(t), 'tmp.mp3')); [y32, fs] = mp3read(strcat('tmp/', num2str(t), 'tmp.mp3'));
+        y31 = 1.8 * y31;
         w31 = slice_decode(y31, num_watermark, k, n(1 : 2), 4);
         w32 = slice_decode(y32, num_watermark, k, n(1 : 2), 4);
-        w33 = slice_decode(y33, num_watermark, k, n(1 : 2), 4);
 
         y41 = slice_encode(x, w, k, a, n(1 : 2), 8);
-        y42 = wav_quantize(y41, 8);
-	y43 = awgn(y41, 30, 'measured');
+	mp3write(y41, fs, strcat('tmp/', num2str(t), 'tmp.mp3')); [y42, fs] = mp3read(strcat('tmp/', num2str(t), 'tmp.mp3'));
+        y41 = 1.8 * y41;
         w41 = slice_decode(y41, num_watermark, k, n(1 : 2), 8);
         w42 = slice_decode(y42, num_watermark, k, n(1 : 2), 8);
-        w43 = slice_decode(y43, num_watermark, k, n(1 : 2), 8);
 
         y51 = slice_encode(x, w, k, a, n(1 : 2), 10);
-        y52 = wav_quantize(y51, 8);
-	y53 = awgn(y51, 30, 'measured');
+	mp3write(y51, fs, strcat('tmp/', num2str(t), 'tmp.mp3')); [y52, fs] = mp3read(strcat('tmp/', num2str(t), 'tmp.mp3'));
+        y51 = 1.8 * y51;
         w51 = slice_decode(y51, num_watermark, k, n(1 : 2), 10);
         w52 = slice_decode(y52, num_watermark, k, n(1 : 2), 10);
-        w53 = slice_decode(y53, num_watermark, k, n(1 : 2), 10);
         result{t} = result{t} + [sum(w == w11) sum(w == w21) sum(w == w31) sum(w == w41) sum(w == w51);
-                                 sum(w == w12) sum(w == w22) sum(w == w32) sum(w == w42) sum(w == w52);
-                                 sum(w == w13) sum(w == w23) sum(w == w33) sum(w == w43) sum(w == w53)];
+                                 sum(w == w12) sum(w == w22) sum(w == w32) sum(w == w42) sum(w == w52)];
         if mod(i, 50) == 0
             disp([t i]);
             disp(result{t} / (i * num_watermark) * 100);
@@ -68,5 +62,5 @@ parfor t = 1 : times
 end
 ret = netsum(result) / (count * times * num_watermark) * 100;
 disp(ret);
-save('/home/wujing/hupeng/slice_test_2_1.mat');
+save('/home/wujing/hupeng/slice_test_2_2.mat');
 

@@ -332,7 +332,7 @@ else
   mysystem(cmd);
 
   % Load the data (may update FS if it was based on a guess previously)
-  [Y,FS] = wavread(tmpfile);
+  [Y,FS] = audioread(tmpfile);
 
 %  % pad delay on to end, just in case
 %  Y = [Y; zeros(delay,size(Y,2))];

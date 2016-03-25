@@ -149,7 +149,7 @@ else
   
   tmpfile = fullfile(tmpdir, [FILE(find(FILE=='/') + 1 : end - 4), '.wav']);
 
-  wavwrite(D',SR,tmpfile);
+  audiowrite(tmpfile, D',SR);
   
   cmd = ['"',lame,'"', lameopts, '"',tmpfile, '" "', FILE, '"'];
 
