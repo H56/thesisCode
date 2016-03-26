@@ -61,7 +61,7 @@ parfor t = 1 : times
         w43 = slice_decode(y43, length(w4), k, n(1 : 16), 10);
 
         w5 = [w4 randi(2, 1, num_watermark) - 1];
-        y51 = slice_encode(x, w5, k, a, n(1 : 2), 32);
+        y51 = slice_encode(x, w5, k, a, n(1 : 32), 10);
         y52 = wav_quantize(y51, 8);
         y53 = awgn(y51, 30, 'measured');
         w51 = slice_decode(y51, length(w5), k, n(1 : 32), 10);
@@ -72,10 +72,10 @@ parfor t = 1 : times
                                  sum(w1 == w13) sum(w3 == w63) sum(w2 == w23) sum(w3 == w33) sum(w4 == w43) sum(w5 == w53)];
         if mod(i, 50) == 0
             disp([t i]);
-            disp(result{t} / (i * num_watermark) * 100);
+            disp(bsxfun(@rdivide, result{t}, [1 3 2 3 4 5] * (i * num_watermark)) * 100);
         end
    end
 end
-ret = netsum(result) / (count * times * num_watermark) * 100;
+ret = bsxfun(@rdivide, netsum(result), [1 3 2 3 4 5] * (count * times * num_watermark)) * 100;
 disp(ret);
 save('/home/wujing/hupeng/slice_test_multi_2_1.mat');
