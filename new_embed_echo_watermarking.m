@@ -7,7 +7,7 @@ end
 key_temp = key;
 p = [key_temp zeros(1, length_segment - length(key_temp))];
 for i = 1 : n
-    x_temp = x((i - 1) * length_segment + 1 : i * length_segment);
+     x_temp = x((i - 1) * length_segment + 1 : i * length_segment);
     q = [zeros(1, delta(watermarking(i) + 1)) p(1 : end - delta(watermarking(i) + 1))];
     delta_c3 = q * ifft(log(abs(fft(x_temp))));
     if delta_c3 >= 0
