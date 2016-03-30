@@ -26,26 +26,31 @@ parfor t = 1 : times
         y11 = echo_encode(x, w, k, a, n(1 : 2));
 	    audiowrite(strcat('tmp/', num2str(t), 'tmp.m4a'), y11, fs, 'BitRate',128);
         [y11, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
+        y11 = y11(1 : length(x));
         w11 = echo_decode(y11, num_watermark, k, n(1 : 2));
 
         y21 = slice_encode(x, w, k, a, n(1 : 2), 2);        
 	    audiowrite(strcat('tmp/', num2str(t), 'tmp.m4a'), y21, fs, 'BitRate',128);
         [y21, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
+        y21 = y21(1 : length(x));
         w21 = slice_decode(y21, num_watermark, k, n(1 : 2), 2);
 
         y31 = slice_encode(x, w, k, a, n(1 : 2), 4);
 	    audiowrite(strcat('tmp/', num2str(t), 'tmp.m4a'), y31, fs, 'BitRate',128);
         [y31, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
+        y31 = y31(1 : length(x));
         w31 = slice_decode(y31, num_watermark, k, n(1 : 2), 4);
 
         y41 = slice_encode(x, w, k, a, n(1 : 2), 8);
 	    audiowrite(strcat('tmp/', num2str(t), 'tmp.m4a'), y41, fs, 'BitRate',128);
         [y41, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
+        y41 = y41(1 : length(x));
         w41 = slice_decode(y41, num_watermark, k, n(1 : 2), 8);
 
         y51 = slice_encode(x, w, k, a, n(1 : 2), 10);
 	    audiowrite(strcat('tmp/', num2str(t), 'tmp.m4a'), y51, fs, 'BitRate',128);
         [y51, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
+        y51 = y51(1 : length(x));
         w51 = slice_decode(y51, num_watermark, k, n(1 : 2), 10);
         result{t} = result{t} + [sum(w == w11) sum(w == w21) sum(w == w31) sum(w == w41) sum(w == w51)];
         if mod(i, 50) == 0
