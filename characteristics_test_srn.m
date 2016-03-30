@@ -14,7 +14,7 @@ result = cell(1, times);
 for i = 1 : times
     result{i} = zeros(4, 2);
 end
-for t = 1 : times
+parfor t = 1 : times
     for i = 1 : count
         [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
         k = PNSequence(Lpn);
