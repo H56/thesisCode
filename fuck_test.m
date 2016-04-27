@@ -1,9 +1,9 @@
-clear; close all; clc;
-
-% files_root_path = 'music_pieces/';
-% all_files = dir(fullfile(files_root_path, '*.wav'));
-% count = length(all_files);
-load('music.mat');
+% clear; close all; clc;
+% 
+% % files_root_path = 'music_pieces/';
+% % all_files = dir(fullfile(files_root_path, '*.wav'));
+% % count = length(all_files);
+% load('music.mat');
 [~, count] = size(music);
 fs = 44100;
 
@@ -27,7 +27,7 @@ for t = 1 : times
         % embed watermark
         p = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
-        y1 = echo_encode(x, w, p, a, n);
+        y1 = dual_encode(x, w, p, a, n);
         y2 = slice_encode(x, w, p, a, n, num_slice);
         
         w1 = dual_decode(y1, num_watermark, p, n);
