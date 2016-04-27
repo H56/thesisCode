@@ -8,4 +8,4 @@ for i = 1 : length(w)
     y = [y; y_temp(1 : Lseg)];
 end
 y = [y; x(length(y) + 1 : end)];
-y = y / (max(abs(y)) + 1);
+y = y / (max(abs(y)));

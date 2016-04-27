@@ -24,4 +24,4 @@ for i = 1 : N
     y = [y; xseg(ns * Lslice + 1 : end)];
 end
 y = [y; x(length(y) + 1 : end)];
-y = y / (max(abs(y)) + 0.1);
+y = y / (max(abs(y)));
