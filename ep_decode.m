@@ -10,6 +10,6 @@ for i  = 1 : count
     for j = 1 : length(n)
         d(j) = [zeros(1, n(j)) key] * cyseg(1 : len + n(j)) - 0.5 * ([zeros(1, n(j) + 1) key] * cyseg(1 : len + n(j) + 1) + [zeros(1, n(j) - 1) key] * cyseg(1 : len + n(j) - 1));
     end
-    [~, w(i)] = max(d);
+    [~, w(i)] = max((d));
 end
 w = w - 1;

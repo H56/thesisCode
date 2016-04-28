@@ -34,7 +34,7 @@ for t = 1 : times
         % embed watermark
         p = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
-        y1 = ep_encode(x, w, p, 0.0062, n);
+        y1 = ep_encode(x, w, p, 0.0065, n);
         y2 = slice_encode(x, w, p, a, n, num_slice);
         
         w1 = ep_decode(y1, num_watermark, p, n);

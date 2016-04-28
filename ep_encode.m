@@ -15,3 +15,4 @@ end
 if length(y) < length(x)
     y = cat(1, y, x(numel(y) + 1 : end));
 end
+y = y / max(abs(y));
