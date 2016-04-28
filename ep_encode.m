@@ -1,11 +1,11 @@
 function y  = ep_encode(x, w, k, a, n)
 y = [];
-n = numel(w);
-length_segment = floor(length(x) / n);
+count = numel(w);
+length_segment = floor(length(x) / count);
 EP_key = EP_PNSequence(k);
 % key = EP_PNSequence(Lpn);
 % X = reshape(x, [], length_segment);
-for i = 1 : n
+for i = 1 : count
     x_temp = x((i - 1) * length_segment + 1 : i * length_segment);
     h = echo_kernel(EP_key, a, n(w(i) + 1));
     y_temp = conv(x_temp, h');

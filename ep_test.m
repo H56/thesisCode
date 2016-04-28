@@ -34,10 +34,10 @@ for t = 1 : times
         % embed watermark
         p = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
-        y1 = EP_embed_echo_watermarking(x, w, p, 0.0062, n);
+        y1 = ep_encode(x, w, p, 0.0062, n);
         y2 = slice_encode(x, w, p, a, n, num_slice);
         
-        w1 = EP_decoding_echo_watermarking(y1, num_watermark, p, n);
+        w1 = ep_decode(y1, num_watermark, p, n);
         w2 = slice_decode(y2, num_watermark, p, n, num_slice);
         
         count1(t) = count1(t) + sum(w == w1);

@@ -1,7 +1,7 @@
 function w = ep_decode(y, count, key, n)
 Lseg = floor(length(y) / count);
-d = zeros(1, length(n))
-w = zeros(1, count)
+d = zeros(1, length(n));
+w = zeros(1, count);
 key = EP_PNSequence(key);
 len = length(key);
 for i  = 1 : count

@@ -4,7 +4,7 @@
 %all_files = dir(fullfile(files_root_path, '*.wav'));
 %count = length(all_files);
 
-music = data;
+% music = data;
 [~, count] = size(music);
 fs = 44100;
 
@@ -21,7 +21,7 @@ for t = 1 : times
     result{t} = zeros(3, 6);
 end
 % count_water = 0;
-parfor t = 1 : times
+for t = 1 : times
     for i = 1 : count
 %        [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
         x = music(:, i);
