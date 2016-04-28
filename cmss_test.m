@@ -19,8 +19,8 @@ num_watermark = 10;
 num_slice = 10;
 Lpn = 1023;
 a = 0.002;
-a1 = 0.0316;
-a2 = 0.1378;
+a1 = 0.01;
+a2 = 0.07;
 snr = 0;
 
 count1 = zeros(times, 1);
@@ -34,9 +34,8 @@ for t = 1 : times
         x = data(:, i);
         % embed watermark
         p = PNSequence(Lpn);
-        k = PNSequence(length(x));
         w = randi(2, 1, num_watermark) - 1;
-        y1 = cmss_encode(x, w, k, a1, a2);
+        [y1 k] = cmss_encode(x, w, a1, a2);
         y2 = slice_encode(x, w, p, a, n, num_slice);
         
         w1 = cmss_decode(y1, num_watermark, k);
