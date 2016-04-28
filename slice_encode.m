@@ -25,4 +25,5 @@ for i = 1 : N
     y = [y; xseg(ns * Lslice + 1 : end)];
 end
 y = [y; x(length(y) + 1 : end)];
+y = y - mean(y);
 y = y / (max(abs(y)));
