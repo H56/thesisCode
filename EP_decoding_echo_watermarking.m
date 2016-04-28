@@ -1,15 +1,15 @@
-function watermarking = EP_decoding_echo_watermarking(y, watermarking_length, key, delta)
-length_segment = floor(numel(y) / watermarking_length);
-watermarking = [];
+function w = ep_decode(y, count, key, n)
+Lseg = floor(length(y) / count);
+d = zeros(1, length(n));
+w = zeros(1, count);
 key = EP_PNSequence(key);
-p = [key zeros(1, length_segment - length(key))];
-for i = 1 : watermarking_length
-    cy = ifft(log(abs(fft(y((i - 1)*length_segment + 1 : i * length_segment)))));
-    cy0 = [zeros(1, delta(1)) p(1, 1 : end - delta(1))] * cy - 0.5 * ([zeros(1, delta(1) - 1) p(1, 1 : end - delta(1) + 1)] * cy + [zeros(1, delta(1) + 1) p(1, 1 : end - delta(1) - 1)] * cy);
-    cy1 = [zeros(1, delta(2)) p(1, 1 : end - delta(2))] * cy - 0.5 * ([zeros(1, delta(2) - 1) p(1, 1 : end - delta(2) + 1)] * cy + [zeros(1, delta(2) + 1) p(1, 1 : end - delta(2) - 1)] * cy);
-    if abs(cy0) >= abs(cy1)
-        watermarking = [watermarking 0];
-    else
-        watermarking = [watermarking 1];
+len = length(key);
+for i  = 1 : count
+    yseg = y((i - 1) * Lseg + 1 : i * Lseg);
+    cyseg = ifft(log(abs(fft(yseg))));
+    for j = 1 : length(n)
+        d(j) = [zeros(1, n(j)) key] * cyseg(1 : len + n(j)) - 0.5 * ([zeros(1, n(j) + 1) key] * cyseg(1 : len + n(j) + 1) + [zeros(1, n(j) - 1) key] * cyseg(1 : len + n(j) - 1));
     end
+    [~, w(i)] = max(d);
 end
+w = w - 1;
