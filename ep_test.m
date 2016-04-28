@@ -14,7 +14,7 @@ music = data;
 [~, count] = size(music);
 fs = 44100;
 
-times = 100;
+times = 1;
 n = [44 88];
 num_watermark = 10;
 num_slice = 10;
@@ -27,17 +27,17 @@ count2 = zeros(times, 1);
 srn1 = zeros(times, 1);
 srn2 = zeros(times, 1);
 % count_water = 0;
-parfor t = 1 : times
+for t = 1 : times
     for i = 1 : count
 %         [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
         x = music(:, i);
         % embed watermark
         p = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
-        y1 = dual_encode(x, w, p, a, n);
+        y1 = EP_embed_echo_watermarking(x, w, p, 0.0062, n);
         y2 = slice_encode(x, w, p, a, n, num_slice);
         
-        w1 = dual_decode(y1, num_watermark, p, n);
+        w1 = EP_decoding_echo_watermarking(y1, num_watermark, p, n);
         w2 = slice_decode(y2, num_watermark, p, n, num_slice);
         
         count1(t) = count1(t) + sum(w == w1);

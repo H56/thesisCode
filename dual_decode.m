@@ -17,7 +17,7 @@ for i  = 1 : count
     cy_odd = ifft(log(abs(fft(y_odd))));
     cy_even = ifft(log(abs(fft(y_even))));
     for j = 1 : length(n)
-        d(j) = [zeros(1, n(j)) k] * cy_odd(1 : length(k_odd) + n(j)) - [zeros(1, n(j)) k] * cy_even(1 : length(k_even) + n(j));
+        d(j) = [zeros(1, n(j)) k] * cy_odd(1 : length(k) + n(j)) - [zeros(1, n(j)) k] * cy_even(1 : length(k) + n(j));
     end
     [~, w(i)] = max(d);
 end

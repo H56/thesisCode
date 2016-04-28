@@ -18,7 +18,8 @@ for i = 1 : N
     for j = 1 : ns
         xslice = xseg((j - 1) * Lslice + 1 : j * Lslice);
         yslice = conv(xslice, kernel');
-        yslice = yslice(1 : Lslice);
+        yslice = ifft(fft(xslice) .* fft([kernel'; zeros(numel(xslice) - numel(kernel), 1)]));
+        %yslice = yslice(1 : Lslice);
         y = [y; yslice];
     end
     y = [y; xseg(ns * Lslice + 1 : end)];

@@ -5,7 +5,8 @@ y = [];
 y_temp = zeros(Lseg, 1);
 a = a / 2;
 for i = 1 : length(w)
-    kernel = echo_kernel(k, a, n(w(i)));
+    kernel_odd = echo_kernel(k, a, n(w(i)));
+    kernel_even = echo_kernel(-k, a, n(w(i)));
     start = (i - 1) * Lseg + 1;
     if mod(start, 2) == 1 
         start_odd = start;
@@ -16,8 +17,8 @@ for i = 1 : length(w)
     end
     x_odd = x(start_odd : 2 : i * Lseg);
     x_even = x(start_even : 2 : i * Lseg);
-    y_odd = conv(x_odd, kernel');
-    y_even = conv(x_even, kernel');
+    y_odd = conv(x_odd, kernel_odd');
+    y_even = conv(x_even, kernel_even');
     y_temp(1 : 2 : end) = y_odd(1 : length(x_odd));
     y_temp(2 : 2 : end) = y_even(1 : length(x_even));
     y = [y; y_temp(1 : Lseg)];
