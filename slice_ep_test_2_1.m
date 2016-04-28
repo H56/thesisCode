@@ -15,7 +15,12 @@ num_watermark = 10;
 Lpn = 1023;
 a1 = 0.0019;
 a2 = 0.002;
+<<<<<<< HEAD
 a3 = 0.006;
+=======
+a3 = 0.00399;
+snr = zeros(times, 6);
+>>>>>>> a5002dbea88a9883c3d9d04fa216e5f14e4bc6fd
 
 snr = cell(times, 1);
 result = cell(times, 1);
