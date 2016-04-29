@@ -8,5 +8,5 @@ for i = 1 : length(w)
     y = [y; y_temp(1 : Lseg)];
 end
 y = [y; x(length(y) + 1 : end)];
-y = y - mean(y);
+%y = y - mean(y);
 y = y / (max(abs(y)));

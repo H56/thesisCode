@@ -5,7 +5,7 @@
 %count = length(all_files);
 
 % music = data;
-[~, count] = size(music);
+[~, count] = size(data);
 fs = 44100;
 
 times = 100;
@@ -15,6 +15,8 @@ num_watermark = 10;
 Lpn = 1023;
 a1 = 0.0019;
 a2 = 0.002;
+a3 = 0.00001;
+a4 = 0.072;
 
 snr = cell(times, 1);
 result = cell(times, 1);
@@ -26,7 +28,7 @@ end
 parfor t = 1 : times
     for i = 1 : count
 %        [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
-        x = music(:, i);
+        x = data(:, i);
         k = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
 
@@ -65,12 +67,12 @@ parfor t = 1 : times
         w52 = slice_decode(y52, num_watermark, k, n(1 : 2), 10);
         w53 = slice_decode(y53, num_watermark, k, n(1 : 2), 10);
         
-        y61 = cmss_encode(x, w, a1, a2);
+        [y61 q] = cmss_encode(x, w, a3, a4);
         y62 = wav_quantize(y61, 8);
         y63 = awgn(y61, 30, 'measured');
-        w61 = cmss_decode(y61, num_watermark, k);
-        w62 = cmss_decode(y62, num_watermark, k);
-        w63 = cmss_decode(y63, num_watermark, k);
+        w61 = cmss_decode(y61, num_watermark, q);
+        w62 = cmss_decode(y62, num_watermark, q);
+        w63 = cmss_decode(y63, num_watermark, q);
  
         result{t} = result{t} + [sum(w == w11) sum(w == w21) sum(w == w31) sum(w == w41) sum(w == w51) sum(w == w61);
                                  sum(w == w12) sum(w == w22) sum(w == w32) sum(w == w42) sum(w == w52) sum(w == w62);

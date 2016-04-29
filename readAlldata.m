@@ -14,3 +14,5 @@ for i = 1 : count
         result = [result x];
     end
 end
+data = result;
+save('music_data.mat', 'data');

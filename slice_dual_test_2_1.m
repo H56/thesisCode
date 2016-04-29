@@ -5,7 +5,7 @@
 %count = length(all_files);
 
 % music = data;
-[~, count] = size(music);
+[~, count] = size(data);
 fs = 44100;
 
 times = 100;
@@ -26,7 +26,7 @@ end
 for t = 1 : times
     for i = 1 : count
 %        [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
-        x = music(:, i);
+        x = data(:, i);
         k = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
 

@@ -19,8 +19,8 @@ num_watermark = 10;
 num_slice = 10;
 Lpn = 1023;
 a = 0.002;
-a1 = 0.01;
-a2 = 0.07;
+a1 = 0.00001;
+a2 = 0.072;
 snr = 0;
 
 count1 = zeros(times, 1);
@@ -46,6 +46,11 @@ for t = 1 : times
                 
         srn1(t) = srn1(t) +  SNR(x, y1);
         srn2(t) = srn2(t) +  SNR(x, y2);
+        if mod(i, 50) == 0
+            disp(['t: ' num2str(t) ', i: ' num2str(i) ': ']);
+            disp(['result: ' num2str([count1(t) count2(t)] / (i * num_watermark) * 100)]);
+            disp(['srn: ' num2str([srn1(t) srn2(t)] / i)]);
+        end
     end
     disp(['step' num2str(t) ': ']);
     disp(['accuracy: ' num2str([count1(t) count2(t)] / (count * num_watermark))]);

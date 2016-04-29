@@ -145,7 +145,7 @@ if length(which('popenw')) > 0
   popenw(p,[]);
 
 else 
-  disp('Warning: popenw not available, writing temporary file');
+%  disp('Warning: popenw not available, writing temporary file');
   
   tmpfile = fullfile(tmpdir, [FILE(find(FILE=='/') + 1 : end - 4), '.wav']);
 
