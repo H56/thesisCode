@@ -20,6 +20,6 @@ for i = 1 : N
     end
     [~, index] = max(d);
     b = dec2bin(index - 1, Lwseg);
-    w = [w double(b) - 48];
+    w = [w, double(b) - 48];
 end
 w = w(1 : Lw);

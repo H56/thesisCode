@@ -20,4 +20,5 @@ for i = 1 : N
     y = [y; y_seg];
 end
 y = [y; x(length(y) + 1 : end)];
+%y = y - mean(y);
 y = y / (max(abs(y)));

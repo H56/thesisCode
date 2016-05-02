@@ -17,11 +17,13 @@ for i = 1 : N
     kernel = echo_kernel(k, a, n(bin2dec(num2str(w_temp, '%d')) + 1));
     for j = 1 : ns
         xslice = xseg((j - 1) * Lslice + 1 : j * Lslice);
-        yslice = conv(xslice, kernel');
-        yslice = yslice(1 : Lslice);
+        %yslice = conv(xslice, kernel');
+        yslice = ifft(fft(xslice) .* fft([kernel'; zeros(numel(xslice) - numel(kernel), 1)]));
+        %yslice = yslice(1 : Lslice);
         y = [y; yslice];
     end
     y = [y; xseg(ns * Lslice + 1 : end)];
 end
 y = [y; x(length(y) + 1 : end)];
-y = y / (max(abs(y)) + 0.1);
+%y = y - mean(y);
+y = y / (max(abs(y)));

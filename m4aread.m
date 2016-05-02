@@ -170,7 +170,7 @@ end
   strs = tokenize(infoline);
 
   % defaults
-  SR = 44100; dur = 0; nchans = 2;
+  SR = 44100; dur = 0; nchans = 1;
   
   % try to find stuff
   ps = strmatch('Hz', strs);

@@ -1,15 +1,13 @@
 clear; close all; clc;
 
-files_root_path = 'music_pieces1/';
-all_files = dir(fullfile(files_root_path, '*.wav'));
-count = length(all_files);
-
+load('music_data.mat');
+[~, count] = size(data);
 times = 100;
 n = [20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320
     340 360 380 400 420 440 460 480 500 520 540 560 580 600 620 640];
 num_watermark = 8;
 Lpn = 1023;
-a_set = [0.001 0.002 0.004 0.006];
+a_set = [0.0005 0.001 0.002 0.004];
 
 %result = zeros(length(a_set), 5);
 result = cell(1, times);
@@ -19,7 +17,7 @@ end
 % count_water = 0;
 parfor t = 1 : times
     for i = 1 : count
-        [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
+        x = data(:, i);
         k = PNSequence(Lpn);
         w1 = randi(2, 1, num_watermark) - 1;
         w2 = [w1 randi(2, 1, num_watermark) - 1];	
@@ -50,4 +48,4 @@ parfor t = 1 : times
 end
 ret = netsum(result) / (count * times);
 disp(ret);
-save('/home/wujing/hupeng/result/multi_bits_srn.mat');
+save('/home/wujing/hupeng/result/slice_multi_bits_srn.mat');

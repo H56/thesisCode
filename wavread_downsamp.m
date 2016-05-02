@@ -19,7 +19,7 @@ N = 1+DS*(N-1);
 chunksize = 1000000;
 buffer = 48;
 
-[SIZ,sr] = wavread(F,'size');
+[SIZ,sr] = audioread(F,'size');
 
 if length(N) == 0
   % whole file
@@ -59,7 +59,7 @@ for i = 1:ceil(nsamp/chunksize)
   
   N = [firstsamp+1 lastsamp];
   
-  [dd,sr] = wavread(F,N);
+  [dd,sr] = audioread(F,N);
 
   if M  % force mono
     dd = mean(dd,2);
