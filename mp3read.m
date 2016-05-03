@@ -182,6 +182,7 @@ end
 
 
 if ~OVERNET
+while 1
   %%%%%% Probe file to find format, size, etc. using "mp3info" utility
   cmd = ['"',mp3info, '" -r m -p "%Q %u %b %r %v * %C %e %E %L %O %o %p" "', FILE,'"'];
   % Q = samprate, u = #frames, b = #badframes (needed to get right answer from %u) 
@@ -192,11 +193,15 @@ if ~OVERNET
   starpos = findstr(w,'*');
   nums = str2num(w(1:(starpos - 2)));
   strs = tokenize(w((starpos+2):end));
-try
-  SR = nums(1);
-catch e
+  try
+    SR = nums(1);
+    break;
+  catch e
     size(nums)
+    disp(FILE);
     disp(e);
+    continue;
+  end
 end
   nframes = nums(2);
   nchans = 2 - strcmp(strs{6}, 'mono');
