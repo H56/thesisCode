@@ -192,8 +192,12 @@ if ~OVERNET
   starpos = findstr(w,'*');
   nums = str2num(w(1:(starpos - 2)));
   strs = tokenize(w((starpos+2):end));
-
+try
   SR = nums(1);
+catch e
+    size(nums)
+    disp(e);
+end
   nframes = nums(2);
   nchans = 2 - strcmp(strs{6}, 'mono');
   layer = length(strs{4});
