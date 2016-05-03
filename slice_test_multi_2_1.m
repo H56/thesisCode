@@ -1,8 +1,9 @@
-clear; close all; clc;
-
-files_root_path = 'music_pieces/';
-all_files = dir(fullfile(files_root_path, '*.wav'));
-count = length(all_files);
+% clear; close all; clc;
+% 
+% files_root_path = 'music_pieces/';
+% all_files = dir(fullfile(files_root_path, '*.wav'));
+% count = length(all_files);
+[~, count] = size(data);
 
 times = 100;
 n = [20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320
@@ -18,7 +19,9 @@ end
 % count_water = 0;
 parfor t = 1 : times
     for i = 1 : count
-        [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
+%         [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
+        fs = 44100;
+        x = data(:, i);
         k = PNSequence(Lpn);
         
         w1 = randi(2, 1, num_watermark) - 1;
