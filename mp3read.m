@@ -200,6 +200,7 @@ while 1
     size(nums)
     disp(FILE);
     disp(e);
+    pause(0);
     continue;
   end
 end
