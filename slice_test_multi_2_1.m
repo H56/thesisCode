@@ -11,10 +11,11 @@ n = [20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320
 num_watermark = 40;
 Lpn = 1023;
 a = 0.002;
+a3 = 0.006;
 
 result = cell(times, 1);
 for t = 1 : times
-    result{t} = zeros(3, 6);
+    result{t} = zeros(3, 5);
 end
 % count_water = 0;
 parfor t = 1 : times
@@ -34,7 +35,7 @@ parfor t = 1 : times
 
 %         w2 = [w1 randi(2, 1, num_watermark) - 1];
         w2 = w1;
-        y21 = ep_encode(x, w, k, a3, n(1 : 2));
+        y21 = ep_encode(x, w2, k, a3, n(1 : 2));
         y22 = wav_quantize(y21, 8);
         y23 = awgn(y21, 30, 'measured');
         w21 = ep_decode(y21, num_watermark, k, n(1 : 2));
@@ -49,7 +50,7 @@ parfor t = 1 : times
 %         w61 = echo_decode(y61, length(w3), k, n(1 : 2));
 %         w62= echo_decode(y62, length(w3), k, n(1 : 2));
 %         w63 = echo_decode(y63, length(w3), k, n(1 : 2));
-        
+        w3 = w2;
         y31 = slice_encode(x, w3, k, a, n(1 : 16), 8);
         y32 = wav_quantize(y31, 8);
         y33 = awgn(y31, 30, 'measured');
@@ -78,10 +79,10 @@ parfor t = 1 : times
                                  sum(w1 == w13) sum(w2 == w23) sum(w3 == w33) sum(w4 == w43) sum(w5 == w53)];
         if mod(i, 50) == 0
             disp([t i]);
-            disp(bsxfun(@rdivide, result{t}, [1 3 2 3 4 5] * (i * num_watermark)) * 100);
+            disp(bsxfun(@rdivide, result{t},[num_watermark, num_watermark, num_watermark, num_watermark, num_watermark + 10] * i) * 100);
         end
    end
 end
-ret = bsxfun(@rdivide, netsum(result), [1 3 2 3 4 5] * (count * times * num_watermark)) * 100;
+ret = bsxfun(@rdivide, netsum(result), [num_watermark, num_watermark, num_watermark, num_watermark, num_watermark + 10] * (count * times)) * 100;
 disp(ret);
 save('/home/wujing/hupeng/slice_test_multi_2_1.mat');
