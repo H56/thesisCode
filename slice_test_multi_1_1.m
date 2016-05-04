@@ -81,10 +81,11 @@ parfor t = 1 : times
                                  sum(w1 == w13) sum(w2 == w23) sum(w3 == w33) sum(w4 == w43) sum(w5 == w53)];
         if mod(i, 50) == 0
             disp([t i]);
-            disp(bsxfun(@rdivide, result{t}, [1 3 2 3 4 5] * (i * num_watermark)) * 100);
+%             disp(bsxfun(@rdivide, result{t},[num_watermark, num_watermark, num_watermark, num_watermark, num_watermark] * i) * 100);
+            disp(result{t} / (i * num_watermark) * 100);
         end
    end
 end
-ret = bsxfun(@rdivide, netsum(result), [1 3 2 3 4 5] * (count * times * num_watermark)) * 100;
+disp(result{t} / (count * times * num_watermark) * 100);
 disp(ret);
 save('/home/wujing/hupeng/slice_test_multi_1_1.mat');
