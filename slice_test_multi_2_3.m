@@ -15,11 +15,11 @@ a3 = 0.006;
 
 result = cell(count, 1);
 for t = 1 : count
-    result{t} = zeros(3, 5);
+    result{t} = zeros(1, 5);
 end
 % count_water = 0;
- parfor t = 1 : count
-    [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
+parfor t = 1 : count
+    [x, fs] = audioread(strcat(files_root_path, all_files(t).name));
     for i = 1 : times        
         k = PNSequence(Lpn);
         
@@ -69,9 +69,7 @@ end
         [y51, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
         y51 = y51(1 : length(x));
         w51 = slice_decode(y51, length(w5), k, n(1 : 32), 8);
-        result{t} = result{t} + [sum(w1 == w11) sum(w2 == w21) sum(w3 == w31) sum(w4 == w41) sum(w5 == w51);
-                                 sum(w1 == w12) sum(w2 == w22) sum(w3 == w32) sum(w4 == w42) sum(w5 == w52);
-                                 sum(w1 == w13) sum(w2 == w23) sum(w3 == w33) sum(w4 == w43) sum(w5 == w53)];
+        result{t} = result{t} + [sum(w1 == w11) sum(w2 == w21) sum(w3 == w31) sum(w4 == w41) sum(w5 == w51)];
         if mod(i, 50) == 0
             disp([t i]);
             disp(bsxfun(@rdivide, result{t},[num_watermark, num_watermark, num_watermark, num_watermark, num_watermark + 10] * i) * 100);
@@ -79,5 +77,5 @@ end
    end
 end
     
-ret = bsxfun(@rdivide, netsum(result), [1 3 2 3 4 5] * (count * times * num_watermark)) * 100;
+ret = bsxfun(@rdivide, netsum(result), [num_watermark, num_watermark, num_watermark, num_watermark, num_watermark + 10] * (count * times)) * 100;
 disp(ret);
