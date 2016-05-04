@@ -1,8 +1,9 @@
-clear; close all; clc;
-
-files_root_path = 'music_pieces/';
-all_files = dir(fullfile(files_root_path, '*.wav'));
-count = length(all_files);
+% clear; close all; clc;
+% 
+% files_root_path = 'music_pieces/';
+% all_files = dir(fullfile(files_root_path, '*.wav'));
+% count = length(all_files);
+[~, count] = size(data);
 
 times = 100;
 n = [20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320
@@ -10,10 +11,11 @@ n = [20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320
 num_watermark = 40;
 Lpn = 1023;
 a = 0.002;
+a3 = 0.006;
 
 result = cell(times, 1);
 for t = 1 : times
-    result{t} = zeros(2, 6);
+    result{t} = zeros(2, 5);
 end
 % count_water = 0;
 parfor t = 1 : times
