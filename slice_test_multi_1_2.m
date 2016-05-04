@@ -71,8 +71,7 @@ parfor t = 1 : times
         w51 = slice_decode(y51, length(w5), k, n(1 : 4), 8);
         w52 = slice_decode(y52, length(w5), k, n(1 : 4), 8);
         result{t} = result{t} + [sum(w1 == w11) sum(w2 == w21) sum(w3 == w31) sum(w4 == w41) sum(w5 == w51);
-                                 sum(w1 == w12) sum(w2 == w22) sum(w3 == w32) sum(w4 == w42) sum(w5 == w52);
-                                 sum(w1 == w13) sum(w2 == w23) sum(w3 == w33) sum(w4 == w43) sum(w5 == w53)];
+                                 sum(w1 == w12) sum(w2 == w22) sum(w3 == w32) sum(w4 == w42) sum(w5 == w52)];
         if mod(i, 50) == 0
             disp([t i]);
 %             disp(bsxfun(@rdivide, result{t},[num_watermark, num_watermark, num_watermark, num_watermark, num_watermark] * i) * 100);
