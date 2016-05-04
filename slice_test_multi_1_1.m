@@ -35,7 +35,7 @@ parfor t = 1 : times
 
 %         w2 = [w1 randi(2, 1, num_watermark) - 1];
         w2 = w1;
-        y21 = ep_encode(x, w, k, a3, n(1 : 2));
+        y21 = ep_encode(x, w2, k, a3, n(1 : 2));
         y22 = wav_quantize(y21, 8);
         y23 = awgn(y21, 30, 'measured');
         w21 = ep_decode(y21, num_watermark, k, n(1 : 2));
@@ -50,7 +50,8 @@ parfor t = 1 : times
 %         w61 = echo_decode(y61, length(w3), k, n(1 : 2));
 %         w62= echo_decode(y62, length(w3), k, n(1 : 2));
 %         w63 = echo_decode(y63, length(w3), k, n(1 : 2));
-        
+       
+        w3 = w1; 
         y31 = slice_encode(x, w3, k, a, n(1 : 4), 2);
         y32 = wav_quantize(y31, 8);
         y33 = awgn(y31, 30, 'measured');
@@ -68,6 +69,7 @@ parfor t = 1 : times
         w43 = slice_decode(y43, length(w4), k, n(1 : 4), 4);
 
 %         w5 = [w4 randi(2, 1, 10) - 1];
+        w5 = w1;
         y51 = slice_encode(x, w5, k, a, n(1 : 4), 8);
         y52 = wav_quantize(y51, 8);
         y53 = awgn(y51, 30, 'measured');
