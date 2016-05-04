@@ -13,14 +13,14 @@ a = 0.002;
 a3 = 0.006;
 snr = 0;
 
-result = cell(times, 1);
-for t = 1 : times
+result = cell(count, 1);
+for t = 1 : count
     result{t} = zeros(1, 5);
 end
 % count_water = 0;
-parfor t = 1 : times
-    for i = 1 : count
-        [x, fs] = audioread(strcat(files_root_path, all_files(i).name));
+parfor t = 1 : count
+    [x, fs] = audioread(strcat(files_root_path, all_files(t).name));
+    for i = 1 : times        
         k = PNSequence(Lpn);
         w = randi(2, 1, num_watermark) - 1;
 
