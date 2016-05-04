@@ -38,9 +38,9 @@ parfor t = 1 : times
         y21 = ep_encode(x, w2, k, a3, n(1 : 2));
         y22 = wav_quantize(y21, 8);
         y23 = awgn(y21, 30, 'measured');
-        w21 = ep_decode(y21, num_watermark, k, n(1 : 2));
-        w22 = ep_decode(y22, num_watermark, k, n(1 : 2));
-        w23 = ep_decode(y23, num_watermark, k, n(1 : 2));
+        w21 = ep_decode(y21, length(w2), k, n(1 : 2));
+        w22 = ep_decode(y22, length(w2), k, n(1 : 2));
+        w23 = ep_decode(y23, length(w2), k, n(1 : 2));
 
 %         w3 = [w2 randi(2, 1, num_watermark) - 1];
 %         w3 = w1;
@@ -86,6 +86,6 @@ parfor t = 1 : times
         end
    end
 end
-disp(result{t} / (count * times * num_watermark) * 100);
+ret = result{t} / (count * times * num_watermark) * 100;
 disp(ret);
 save('/home/wujing/hupeng/slice_test_multi_1_1.mat');
