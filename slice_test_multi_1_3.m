@@ -10,10 +10,11 @@ n = [20 40 60 80 100 120 140 160 180 200 220 240 260 280 300 320
 num_watermark = 8;
 Lpn = 1023;
 a = 0.002;
+a3 = 0.006;
 
 result = cell(times, 1);
 for t = 1 : times
-    result{t} = zeros(1, 6);
+    result{t} = zeros(1, 5);
 end
 % count_water = 0;
  parfor t = 1 : times
@@ -66,9 +67,7 @@ end
         [y51, ~] = audioread(strcat('tmp/', num2str(t), 'tmp.m4a'));
         y51 = y51(1 : length(x));
         w51 = slice_decode(y51, length(w5), k, n(1 : 4), 8);
-        result{t} = result{t} + [sum(w1 == w11) sum(w2 == w21) sum(w3 == w31) sum(w4 == w41) sum(w5 == w51);
-                                 sum(w1 == w12) sum(w2 == w22) sum(w3 == w32) sum(w4 == w42) sum(w5 == w52);
-                                 sum(w1 == w13) sum(w2 == w23) sum(w3 == w33) sum(w4 == w43) sum(w5 == w53)];
+        result{t} = result{t} + [sum(w1 == w11) sum(w2 == w21) sum(w3 == w31) sum(w4 == w41) sum(w5 == w51)];
         if mod(i, 50) == 0
             disp([t i]);
 %             disp(bsxfun(@rdivide, result{t},[num_watermark, num_watermark, num_watermark, num_watermark, num_watermark] * i) * 100);
