@@ -86,6 +86,6 @@ parfor t = 1 : times
         end
    end
 end
-ret = result{t} / (count * times * num_watermark) * 100;
+ret = netsum(result) / (count * times * num_watermark) * 100;
 disp(ret);
 save('/home/wujing/hupeng/slice_test_multi_1_1.mat');
